@@ -59,7 +59,13 @@ C:\Users\name\.platformio\packages\framework-arduinoespressif32\tools\partitions
 board_build.partitions = huge_app.csv
 ```
 ### TFT_eSPI库
-有两种安装方式，一种是直接在platformio的主页->Libraries->Registry选项中搜索TFT_eSPI库进行安装，另外一种是在工程目录中的lib文件夹中添加自己的第三方库。这里我先是安装了官方的TFT_eSPI库，但是其中并没有GC9D01驱动文件，方便起见我直接将厂家提供的包含GC9D01驱动的TFT库覆盖安装完的TFT库。理论上而言只需要修改User_Setup.h、User_Setup_Select.h以及config.h文件即可
+有两种安装方式，一种是直接在platformio的主页->Libraries->Registry选项中搜索TFT_eSPI库进行安装
+![Image text](https://github.com/DylanLi0720/dualEye-by-ESP32C3/blob/main/img/TFT_eSPI%E5%BA%93.png)
+
+另外一种是在工程目录中的lib文件夹中添加自己的第三方库，具体添加方式可参照其中的readme文件。
+![Image text](https://github.com/DylanLi0720/dualEye-by-ESP32C3/blob/main/img/lib.png)
+
+这里我先是安装了官方的TFT_eSPI库，但是其中并没有GC9D01驱动文件，方便起见我直接将厂家提供的包含GC9D01驱动的TFT库覆盖安装完的TFT库。理论上而言只需要修改User_Setup.h、User_Setup_Select.h以及config.h文件即可
 
 ### 一些宏定义
 厂家提供的例程未使用DMA通道，故而需要注释#define USE_DMA这一行，否则眼睛效果无法实现。
