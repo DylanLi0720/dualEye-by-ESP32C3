@@ -493,7 +493,6 @@ void split( // Subdivides motion path into two sub-paths w/randimization
   uint32_t startTime,  // micros() at start
   int32_t  duration,   // Start-to-end time, in microseconds
   int16_t  range) {    // Allowable scale value variance when subdividing
-
   if (range >= 8) {    // Limit subdvision count, because recursion
     range    /= 2;     // Split range & time in half for subdivision,
     duration /= 2;     // then pick random center point within range:
@@ -535,6 +534,7 @@ void updateEye (void)
   static int16_t irisValue = (IRIS_MIN + IRIS_MAX) / 2;
   irisValue = ((irisValue * 15) + v) / 16;
   frame(irisValue);
+
 #else // Unfiltered (immediate motion)
   frame(v);
 #endif // IRIS_SMOOTH

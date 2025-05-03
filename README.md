@@ -67,6 +67,21 @@ board_build.partitions = huge_app.csv
 
 这里我先是安装了官方的TFT_eSPI库，但是其中并没有GC9D01驱动文件，方便起见我直接将厂家提供的包含GC9D01驱动的TFT库覆盖安装完的TFT库。理论上而言只需要修改User_Setup.h、User_Setup_Select.h以及config.h文件即可
 
+### 眼睛渲染函数
+渲染入口在
+```
+updateEye()->split(oldIris, newIris, micros(), 10000000L, IRIS_MAX - IRIS_MIN)->frame(v)->drawEye(eyeIndex, iScale, eyeX, eyeY, n, lThreshold)->tft.pushPixels(pbuffer, pixels)
+```
+其中tft.pushPixels的方法在TFT_eSPI_ESP32_C3.c中387行定义：
+```
+void TFT_eSPI::pushPixels(const void* data_in, uint32_t len)
+```
+眼球图片存储在
+```
+config.h->defaultEye.h
+```
+在defaulEye.h中使用const及PROGMEM关键字将图片数组存储在esp32的flash上，在drawEye函数中，使用pgm_read_word函数读出原先存储在flash中的数据，保存在pbuffer中，最后使用pushPixels函数将pbuffer写入每一个像素点。
+
 ### 一些宏定义
 厂家提供的例程未使用DMA通道，故而需要注释#define USE_DMA这一行，否则眼睛效果无法实现。
 
